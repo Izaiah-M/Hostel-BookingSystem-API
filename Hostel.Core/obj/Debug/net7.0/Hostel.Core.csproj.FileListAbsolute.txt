@@ -1,0 +1,12 @@
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\bin\Debug\net7.0\Hostel.Core.deps.json
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\bin\Debug\net7.0\Hostel.Core.dll
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\bin\Debug\net7.0\Hostel.Core.pdb
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\Hostel.Core.csproj.AssemblyReference.cache
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\Hostel.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\Hostel.Core.AssemblyInfoInputs.cache
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\Hostel.Core.AssemblyInfo.cs
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\Hostel.Core.csproj.CoreCompileInputs.cache
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\Hostel.Core.dll
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\refint\Hostel.Core.dll
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\Hostel.Core.pdb
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\ref\Hostel.Core.dll
