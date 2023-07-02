@@ -1,8 +1,8 @@
 {
   "Version": 1,
-  "Hash": "lBiPGpCmLIUEbOzt13XW/IBG18S0JcLEy2dytlHilUM=",
-  "Source": "Hostel.MVC",
-  "BasePath": "_content/Hostel.MVC",
+  "Hash": "12NkiKd8XzcM2/X3pDumY2ldEztjbV7cjUnegiUvcfw=",
+  "Source": "Hostel.API",
+  "BasePath": "_content/Hostel.API",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],

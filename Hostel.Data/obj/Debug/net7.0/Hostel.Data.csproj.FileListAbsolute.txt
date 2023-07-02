@@ -10,3 +10,5 @@ C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Data\obj\De
 C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Data\obj\Debug\net7.0\refint\Hostel.Data.dll
 C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Data\obj\Debug\net7.0\Hostel.Data.pdb
 C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Data\obj\Debug\net7.0\ref\Hostel.Data.dll
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Data\bin\Debug\net7.0\Hostel.Data.runtimeconfig.json
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Data\obj\Debug\net7.0\Hostel.Data.genruntimeconfig.cache
