@@ -1,4 +1,6 @@
-﻿namespace HostME.Data.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace HostME.Data.Models
 {
 
 public partial class Room
@@ -11,11 +13,13 @@ public partial class Room
 
     public int? Capacity { get; set; }
 
-    public decimal? PricePerSemester { get; set; }
+
+    public double? PricePerSemester { get; set; }
 
     public string? RoomStatus { get; set; }
 
-    public virtual Hostel? Hostel { get; set; }
+    [ForeignKey("HostelId")]
+    public  Hostel? Hostel { get; set; }
 }
 
 }

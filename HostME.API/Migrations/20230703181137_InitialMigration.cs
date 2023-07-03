@@ -17,10 +17,10 @@ namespace HostME.API.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AccessLevel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AccessLevel = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -34,12 +34,11 @@ namespace HostME.API.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstLogin = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    HostelId = table.Column<int>(type: "int", nullable: false),
-                    RoomId = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -61,12 +60,27 @@ namespace HostME.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Hostels",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NoOfRooms = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Hostels", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -87,7 +101,7 @@ namespace HostME.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -109,7 +123,7 @@ namespace HostME.API.Migrations
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -126,8 +140,8 @@ namespace HostME.API.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -150,7 +164,7 @@ namespace HostME.API.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -167,6 +181,54 @@ namespace HostME.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "HostelManagers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ManagerId = table.Column<int>(type: "int", nullable: false),
+                    HostelId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HostelManagers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_HostelManagers_AspNetUsers_ManagerId",
+                        column: x => x.ManagerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_HostelManagers_Hostels_HostelId",
+                        column: x => x.HostelId,
+                        principalTable: "Hostels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Rooms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HostelId = table.Column<int>(type: "int", nullable: true),
+                    RoomType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Capacity = table.Column<int>(type: "int", nullable: true),
+                    PricePerSemester = table.Column<double>(type: "float", nullable: true),
+                    RoomStatus = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rooms", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rooms_Hostels_HostelId",
+                        column: x => x.HostelId,
+                        principalTable: "Hostels",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Bookings",
                 columns: table => new
                 {
@@ -177,47 +239,66 @@ namespace HostME.API.Migrations
                     TotalPrice = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     HostelId = table.Column<int>(type: "int", nullable: false),
                     RoomId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Bookings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Bookings_AspNetUsers_CustomerId",
-                        column: x => x.CustomerId,
+                        name: "FK_Bookings_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Bookings_Hostels_HostelId",
+                        column: x => x.HostelId,
+                        principalTable: "Hostels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Bookings_Rooms_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Rooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "HostelManagers",
+                name: "HostelResidents",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    HostelId = table.Column<int>(type: "int", nullable: false),
-                    ManagerId_ = table.Column<int>(type: "int", nullable: false),
-                    ManagerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    RoomId = table.Column<int>(type: "int", nullable: false),
+                    ResidentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_HostelManagers", x => x.Id);
+                    table.PrimaryKey("PK_HostelResidents", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_HostelManagers_AspNetUsers_ManagerId",
-                        column: x => x.ManagerId,
+                        name: "FK_HostelResidents_AspNetUsers_ResidentId",
+                        column: x => x.ResidentId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_HostelResidents_Rooms_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Rooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
-                columns: new[] { "Id", "AccessLevel", "ConcurrencyStamp", "Description", "Discriminator", "Name", "NormalizedName" },
+                columns: new[] { "Id", "AccessLevel", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2a9934e1-774f-405f-83d1-9be4ee3bee44", "/[\"user dashboard/\"]", null, "customer role", "ApiRoles", "User", "USER" },
-                    { "85706790-7a28-4b16-ad51-a4fcea3d2bd0", "/[\"admin dashboard/\", \"manager dashboard\", \"user dashboard\"]", null, "Super Admin role", "ApiRoles", "Super Administrator", "SUPER ADMINISTRATOR" },
-                    { "b0679bef-baef-4959-834c-48794cb71c33", "/[\"manager dashboard/\"]", null, "Hostel manager role", "ApiRoles", "Hostel Manager", "HOSTEL MANAGER" }
+                    { 1, "/[\"admin dashboard/\", \"manager dashboard\", \"user dashboard\"]", null, "Super Admin role", "Super Administrator", "SUPER ADMINISTRATOR" },
+                    { 2, "/[\"manager dashboard/\"]", null, "Hostel manager role", "Hostel Manager", "HOSTEL MANAGER" },
+                    { 3, "/[\"resident dashboard/\"]", null, "resident role", "Resident", "RESIDENT" },
+                    { 4, "/[\"user dashboard/\"]", null, "user role", "User", "USER" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -260,14 +341,45 @@ namespace HostME.API.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bookings_CustomerId",
+                name: "IX_Bookings_HostelId",
                 table: "Bookings",
-                column: "CustomerId");
+                column: "HostelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_RoomId",
+                table: "Bookings",
+                column: "RoomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_UserId",
+                table: "Bookings",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HostelManagers_HostelId",
+                table: "HostelManagers",
+                column: "HostelId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_HostelManagers_ManagerId",
                 table: "HostelManagers",
                 column: "ManagerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HostelResidents_ResidentId",
+                table: "HostelResidents",
+                column: "ResidentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HostelResidents_RoomId",
+                table: "HostelResidents",
+                column: "RoomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rooms_HostelId",
+                table: "Rooms",
+                column: "HostelId");
         }
 
         /// <inheritdoc />
@@ -295,10 +407,19 @@ namespace HostME.API.Migrations
                 name: "HostelManagers");
 
             migrationBuilder.DropTable(
+                name: "HostelResidents");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Rooms");
+
+            migrationBuilder.DropTable(
+                name: "Hostels");
         }
     }
 }

@@ -1,18 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HostME.Data.Models
 {
     public class HostelManager
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [ForeignKey(nameof(Hostel))]
+        public int ManagerId { get; set; }
+
         public int HostelId { get; set; }
-        public virtual Hostel? Hostel { get; set; }
 
+        [ForeignKey("ManagerId")]
+        public ApiUser? Manager { get; set; }
 
-        [ForeignKey(nameof(ApiUser))]
-        public int ManagerId_ { get; set; }
-        public virtual ApiUser? Manager { get; set; }
+        [ForeignKey("HostelId")]
+        public Hostel? Hostel { get; set; }
     }
 }

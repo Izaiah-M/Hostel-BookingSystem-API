@@ -11,6 +11,7 @@ namespace HostME.Data.EntityConfig
             builder.HasData(
                 new ApiRoles
                 {
+                    Id = 1,
                     Name = "Super Administrator",
                     NormalizedName = "SUPER ADMINISTRATOR",
                     Description = "Super Admin role",
@@ -18,6 +19,7 @@ namespace HostME.Data.EntityConfig
                 },
                 new ApiRoles
                 {
+                    Id = 2,
                     Name = "Hostel Manager",
                     NormalizedName = "HOSTEL MANAGER",
                     Description = "Hostel manager role",
@@ -25,9 +27,18 @@ namespace HostME.Data.EntityConfig
                 },
                 new ApiRoles
                 {
+                    Id = 3,
+                    Name = "Resident",
+                    NormalizedName = "RESIDENT",
+                    Description = "resident role",
+                    AccessLevel = "/[\"resident dashboard/\"]"
+                },
+                new ApiRoles
+                {
+                    Id = 4,
                     Name = "User",
                     NormalizedName = "USER",
-                    Description = "customer role",
+                    Description = "user role",
                     AccessLevel = "/[\"user dashboard/\"]"
                 }
 

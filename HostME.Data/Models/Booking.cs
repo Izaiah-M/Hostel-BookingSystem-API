@@ -15,20 +15,21 @@ namespace HostME.Data.Models
         [Column(TypeName = "decimal(10, 2)")]
         public decimal TotalPrice { get; set; }
 
-        // To add a foreignkey, it has to be in the format below
-        // Name of the foreignKey
-        // Table from which it comes from.
-        [ForeignKey(nameof(Hostel))]
         public int HostelId { get; set; }
+
+        public int RoomId { get; set; }
+
+
+        public int UserId { get; set; }
+        
+        [ForeignKey("HostelId")]
         public virtual Hostel? Hostel { get; set; }
 
-        [ForeignKey(nameof(Room))]
-        public int RoomId { get; set; }
+        [ForeignKey("RoomId")]
         public virtual Room? Room { get; set; }
 
 
-        [ForeignKey(nameof(ApiUser))]
-        public int UserId { get; set; }
+        [ForeignKey("UserId")]
         public virtual ApiUser? Customer { get; set; }
 
     }

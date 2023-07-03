@@ -2,7 +2,7 @@
 
 namespace HostME.Data.Models
 {
-    public class ApiRoles : IdentityRole
+    public class ApiRoles : IdentityRole<int>
     {
         public string Description { get; set; } = null!;
 

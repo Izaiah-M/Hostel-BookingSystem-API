@@ -31,7 +31,7 @@ builder.Services.AddDbContext<HostMeContext>(
 
 // 4. Configuring Identity core
 builder.Services.AddAuthentication();
-builder.Services.AddIdentity<ApiUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddIdentity<ApiUser, ApiRoles>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<HostMeContext>().AddDefaultTokenProviders();
 
 // 5. Unit of Work Config

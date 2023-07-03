@@ -16,7 +16,6 @@ namespace HostME.API.Controllers
         private readonly ILogger<HostelController> _logger;
         private readonly UserManager<ApiUser> _usermanager;
 
-
         public HostelController(ILogger<HostelController> logger, IMapper mapper, IUnitOfWork unitOfWork, UserManager<ApiUser> usermanager)
         {
             _logger = logger;
@@ -25,10 +24,9 @@ namespace HostME.API.Controllers
             _usermanager = usermanager;
         }
 
-
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> CreateHostel([FromBody] HostelDTO hostelDTO) 
+        public async Task<IActionResult> CreateHostel([FromBody] HostelDTO hostelDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -43,21 +41,24 @@ namespace HostME.API.Controllers
                 return BadRequest("User does not exist!");
             }
 
+            await _unitOfWork.HostelRepository.Insert(hostel);
+            await _unitOfWork.Save();
+
             var hostelManager = new HostelManager
             {
+                ManagerId = hostelDTO.ManagerId,
                 Hostel = hostel,
                 Manager = manager
             };
 
-            hostel.Manager = hostelManager;
 
-            await _unitOfWork.HostelRepository.Insert(hostel);
 
+            await _unitOfWork.HostelManagerRepository.Insert(hostelManager);
             await _unitOfWork.Save();
 
             _logger.LogInformation($"Created Hostel: {hostel.Id}, {hostel.Name}, {hostel.Address}, {hostel.NoOfRooms} : Manager: {hostelManager.Manager}");
 
-            return Created("Hotel successfully created", hostel);
+            return Created("Hostel successfully created", hostel);
         }
     }
 }

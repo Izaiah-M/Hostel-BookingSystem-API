@@ -1,7 +1,12 @@
-﻿namespace HostME.Data.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace HostME.Data.Models;
 
 public  class Hostel
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
     public string? Name { get; set; }
@@ -11,8 +16,6 @@ public  class Hostel
     public int? NoOfRooms { get; set; }
 
     // Navigation Property
-    public virtual HostelManager? Manager { get; set; }
-
     public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();
 }
 

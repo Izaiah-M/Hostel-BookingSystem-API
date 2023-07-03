@@ -16,7 +16,7 @@ namespace HostME.API.Controllers
         private readonly ILogger<AuthController> _logger;
         private readonly IMapper _mapper;
         private readonly UserManager<ApiUser> _usermanager;
-        private ApiUser? _user;
+        //private ApiUser? _user;
 
         // Dependency Injection
         public AuthController(
