@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "g47vxiYNACrrSvEeK35UZ7hAXJe9tUb9rUKJTXKfwddNqorTA8X35JsOxfomXTD3EdaVShVIemZvJgdk3YyYnA==",
+  "dgSpecHash": "7Q+gtUWiwxDKCdAgqOysfswj2NKntn96k+zyACJEFDQ68SDhFa//9Ild6YjlykJ24E3kgapH3BNHdfvnMzPiQA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\Hostel.Data.csproj",
+  "projectFilePath": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\HostME.Data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

@@ -3641,9 +3641,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\Hostel.Data.csproj",
-      "projectName": "Hostel.Data",
-      "projectPath": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\Hostel.Data.csproj",
+      "projectUniqueName": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\HostME.Data.csproj",
+      "projectName": "HostME.Data",
+      "projectPath": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\HostME.Data.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\obj\\",
       "projectStyle": "PackageReference",

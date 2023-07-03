@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace HostME.Data.Models;
 
-namespace Hostel.Data.Models;
-
-public partial class Hostel
+public  class Hostel
 {
     public int Id { get; set; }
 
@@ -15,3 +12,5 @@ public partial class Hostel
 
     public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();
 }
+
+

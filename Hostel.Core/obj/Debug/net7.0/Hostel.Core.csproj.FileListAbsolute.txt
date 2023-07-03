@@ -10,3 +10,6 @@ C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\De
 C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\refint\Hostel.Core.dll
 C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\Hostel.Core.pdb
 C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\ref\Hostel.Core.dll
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\bin\Debug\net7.0\Hostel.Data.dll
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\bin\Debug\net7.0\Hostel.Data.pdb
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\Hostel.Core.csproj.CopyComplete

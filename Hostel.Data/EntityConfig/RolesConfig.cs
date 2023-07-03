@@ -1,8 +1,8 @@
-﻿using Hostel.Data.Models;
+﻿using HostME.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Hostel.Data.EntityConfig
+namespace HostME.Data.EntityConfig
 {
     public class RolesConfig : IEntityTypeConfiguration<ApiRoles>
     {

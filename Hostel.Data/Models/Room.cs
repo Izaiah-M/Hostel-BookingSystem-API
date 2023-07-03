@@ -1,4 +1,5 @@
-﻿namespace Hostel.Data.Models;
+﻿namespace HostME.Data.Models
+{
 
 public partial class Room
 {
@@ -16,3 +17,6 @@ public partial class Room
 
     public virtual Hostel? Hostel { get; set; }
 }
+
+}
+

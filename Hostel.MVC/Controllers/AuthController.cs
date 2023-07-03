@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Hostel.API.Controllers
+namespace HostME.API.Controllers
 {
+    [Route("api/auth")]
+    [ApiController]
     public class AuthController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        
     }
 }

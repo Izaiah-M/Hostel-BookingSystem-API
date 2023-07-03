@@ -4,12 +4,12 @@
     "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.MVC\\Hostel.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Core\\Hostel.Core.csproj": {
+    "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Core\\Hostels.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Core\\Hostel.Core.csproj",
-        "projectName": "Hostel.Core",
-        "projectPath": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Core\\Hostel.Core.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Core\\Hostels.Core.csproj",
+        "projectName": "Hostels.Core",
+        "projectPath": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Core\\Hostels.Core.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Core\\obj\\",
         "projectStyle": "PackageReference",
@@ -27,7 +27,11 @@
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\Hostels.Data.csproj": {
+                "projectPath": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\Hostels.Data.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -59,12 +63,12 @@
         }
       }
     },
-    "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\Hostel.Data.csproj": {
+    "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\Hostels.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\Hostel.Data.csproj",
-        "projectName": "Hostel.Data",
-        "projectPath": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\Hostel.Data.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\Hostels.Data.csproj",
+        "projectName": "Hostels.Data",
+        "projectPath": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\Hostels.Data.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\obj\\",
         "projectStyle": "PackageReference",
@@ -159,11 +163,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Core\\Hostel.Core.csproj": {
-                "projectPath": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Core\\Hostel.Core.csproj"
+              "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Core\\Hostels.Core.csproj": {
+                "projectPath": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Core\\Hostels.Core.csproj"
               },
-              "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\Hostel.Data.csproj": {
-                "projectPath": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\Hostel.Data.csproj"
+              "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\Hostels.Data.csproj": {
+                "projectPath": "C:\\Users\\HP\\OneDrive\\Desktop\\ASP.NET\\HostelProject\\Hostel.MVC\\Hostel.Data\\Hostels.Data.csproj"
               }
             }
           }

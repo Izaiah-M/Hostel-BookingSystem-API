@@ -867,6 +867,9 @@
         }
       },
       "Hostel.Core/1.0.0": {
+        "dependencies": {
+          "Hostel.Data": "1.0.0"
+        },
         "runtime": {
           "Hostel.Core.dll": {}
         }

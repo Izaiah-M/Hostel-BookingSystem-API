@@ -1,0 +1,15 @@
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\HostME.Core.csproj.AssemblyReference.cache
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\HostME.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\HostME.Core.AssemblyInfoInputs.cache
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\HostME.Core.AssemblyInfo.cs
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\HostME.Core.csproj.CoreCompileInputs.cache
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\bin\Debug\net7.0\HostME.Core.deps.json
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\bin\Debug\net7.0\HostME.Core.dll
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\bin\Debug\net7.0\HostME.Core.pdb
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\bin\Debug\net7.0\HostME.Data.dll
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\bin\Debug\net7.0\HostME.Data.pdb
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\HostME.Core.csproj.CopyComplete
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\HostME.Core.dll
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\refint\HostME.Core.dll
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\HostME.Core.pdb
+C:\Users\HP\OneDrive\Desktop\ASP.NET\HostelProject\Hostel.MVC\Hostel.Core\obj\Debug\net7.0\ref\HostME.Core.dll

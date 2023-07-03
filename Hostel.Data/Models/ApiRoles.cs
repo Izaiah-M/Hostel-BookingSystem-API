@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Hostel.Data.Models
+namespace HostME.Data.Models
 {
     public class ApiRoles : IdentityRole
     {

@@ -1,9 +1,9 @@
-﻿using Hostel.Data.EntityConfig;
+﻿using HostME.Data.EntityConfig;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Hostel.Data.Models;
+namespace HostME.Data.Models;
 
 public partial class HostMeContext : IdentityDbContext<ApiUser>
 {
@@ -22,6 +22,7 @@ public partial class HostMeContext : IdentityDbContext<ApiUser>
 
     public virtual DbSet<Booking> Bookings { get; set; }
 
+    public virtual DbSet<HostelManager> HostelManagers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -69,8 +70,8 @@ public partial class HostMeContext : IdentityDbContext<ApiUser>
 
         modelBuilder.Ignore<Room>();
         modelBuilder.Ignore<Hostel>();
-       /* modelBuilder.Ignore<IdentityRole>();
-        modelBuilder.Ignore<IdentityUser>();*/
+        modelBuilder.Ignore<IdentityRole>();
+        modelBuilder.Ignore<IdentityUser>();
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
