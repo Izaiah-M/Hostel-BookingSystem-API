@@ -35,5 +35,9 @@ namespace HostME.Core.DTOs
         public IList<RoomDTO>? Rooms { get; set; }
     }
 
-
+    public class DeleteHostelDTO
+    {
+        [Required]
+        public int Id { get; set; }
+    }
 }

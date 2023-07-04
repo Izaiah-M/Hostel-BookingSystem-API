@@ -102,5 +102,27 @@ namespace HostME.API.Controllers
 
             return Created("Hostel Updated", hostel);
         }
+
+        [HttpDelete]
+        [Route("delete")]
+        public async Task<IActionResult> DeleteHostel([FromBody] DeleteHostelDTO hostelDTO)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest("Missing Fields");
+            }
+
+            var hostel = await _unitOfWork.HostelRepository.Get(h => h.Id == hostelDTO.Id);
+
+            if(hostel == null)
+            {
+                return NotFound();
+            }
+
+            await _unitOfWork.HostelRepository.Delete(hostelDTO.Id);
+            await _unitOfWork.Save(); 
+            
+            return Ok($"{hostel.Name} Deleted");
+        }
     }
 }
