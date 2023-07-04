@@ -1,0 +1,12 @@
+/.vs
+
+/HostME.Data/bin
+/HostME.Data/bin/Debug
+/HostME.Data/obj
+
+/HostME.Core/bin
+/HostME.Core/obj
+
+
+/HostME.API/bin
+/HostME.API/obj
