@@ -1,4 +1,5 @@
 using HostME.API.Config;
+using HostME.Core;
 using HostME.Core.UnitOfWork;
 using HostME.Data.Models;
 using Microsoft.AspNetCore.Identity;
@@ -52,6 +53,9 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+
+// 7. Configuring our global exception handler
+app.ConfigureExceptionHandler();
 
 // 1. Registering CORs Policy
 app.UseCors(origins);

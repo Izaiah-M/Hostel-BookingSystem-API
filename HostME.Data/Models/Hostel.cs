@@ -16,7 +16,9 @@ public  class Hostel
     public int? NoOfRooms { get; set; }
 
     // Navigation Property
-    public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();
+    public virtual IList<Room>? Rooms { get; set; }
+
+    public HostelManager? HostelManager { get; set; }
 }
 
 

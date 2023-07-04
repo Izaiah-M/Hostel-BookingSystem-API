@@ -29,4 +29,5 @@ namespace HostME.Core.DTOs
         public IList<RoomDTO>? Rooms { get; set; }
     }
 
+
 }

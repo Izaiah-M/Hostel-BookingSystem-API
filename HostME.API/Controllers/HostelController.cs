@@ -24,10 +24,28 @@ namespace HostME.API.Controllers
             _usermanager = usermanager;
         }
 
+        [HttpGet]
+        public async Task<ActionResult> GetAllHostels()
+        {
+            var hostels = await _unitOfWork.HostelRepository.GetAll();
+
+            var results = _mapper.Map<List<GetHostelDTO>>(hostels);
+
+            // Populate ManagerId for each hostel
+            foreach (var hostel in results)
+            {
+                var hostelManager = await _unitOfWork.HostelManagerRepository.Get(q => q.Id == hostel.Id);
+                hostel.ManagerId = hostelManager?.ManagerId ?? 0;
+            }
+
+            return Ok(results);
+        }
+
         [HttpPost]
         [Route("create")]
         public async Task<IActionResult> CreateHostel([FromBody] HostelDTO hostelDTO)
         {
+
             if (!ModelState.IsValid)
             {
                 return BadRequest("Missing Fields");
