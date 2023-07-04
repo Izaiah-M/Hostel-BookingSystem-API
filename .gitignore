@@ -1,12 +1,12 @@
 /.vs
 
 /HostME.Data/bin
-/HostME.Data/bin/Debug
+/HostME.Data/bin/Debug/net7.0
 /HostME.Data/obj
 
-/HostME.Core/bin
+/HostME.Core/bin/Debug/net7.0
 /HostME.Core/obj
 
 
-/HostME.API/bin
+/HostME.API/bin/Debug/net7.0
 /HostME.API/obj
