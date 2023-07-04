@@ -78,5 +78,29 @@ namespace HostME.API.Controllers
 
             return Created("Hostel successfully created", hostel);
         }
+
+        [HttpPost]
+        [Route("update")]
+        public async Task<IActionResult> UpdateHostel([FromBody] UpdateHostelDTO hostelDTO)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest("Missing Fields");
+            }
+
+            var hostel = await _unitOfWork.HostelRepository.Get(h => h.Id == hostelDTO.Id);
+
+            if(hostel == null)
+            {
+                return BadRequest("Hostel Not Found");
+            }
+
+            _mapper.Map(hostelDTO, hostel);
+
+            _unitOfWork.HostelRepository.Update(hostel);
+            await _unitOfWork.Save();
+
+            return Created("Hostel Updated", hostel);
+        }
     }
 }

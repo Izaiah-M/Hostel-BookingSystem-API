@@ -21,6 +21,12 @@ namespace HostME.Core.DTOs
 
     }
 
+    public class UpdateHostelDTO : HostelDTO
+    {
+        [Required]
+        public int Id { get; set; }
+    }
+
     public class GetHostelDTO : HostelDTO
     {
         [Required]

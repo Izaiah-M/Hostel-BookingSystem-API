@@ -17,8 +17,6 @@ public  class Hostel
 
     // Navigation Property
     public virtual IList<Room>? Rooms { get; set; }
-
-    public HostelManager? HostelManager { get; set; }
 }
 
 
