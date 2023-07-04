@@ -14,6 +14,24 @@ namespace HostME.Core.DTOs
         public required string Password { get; set; }
     }
 
+    public class OneUserDTO
+    {
+        [Required]
+        [StringLength(100)]
+        public required string FirstName { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public required string LastName { get; set; }
+
+        [Required]
+        public required string PhoneNumber { get; set; }
+
+        [Required]
+        [StringLength(255)]
+        public required string Email { get; set; }
+    }
+
     public class UserDTO : LoginDTO
     {
         [Required]
