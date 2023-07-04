@@ -50,17 +50,15 @@ namespace HostME.API.Controllers
                 return BadRequest("Missing fields");
             }
 
-            var hostel = await _unitOfWork.HostelRepository.Get(h => h.Id == hostelDTO.Id);
+            // Because we want to return the rooms as well we are going to use our list property of the get method in the gen repository
+            var hostel = await _unitOfWork.HostelRepository.Get(h => h.Id == hostelDTO.Id, new List<string> { "Rooms" });
 
             if (hostel == null)
             {
-                return NotFound();
+                return NotFound("Hostel was not found");
             }
 
             var result = _mapper.Map<GetHostelDTO>(hostel);
-
-            // Retrieve rooms for the hostel
-            result.Rooms = _mapper.Map<IList<RoomDTO>>(hostel.Rooms);
 
             // Populate ManagerId for the hostel
             var hostelManager = await _unitOfWork.HostelManagerRepository.Get(h => h.Id == hostel.Id);
@@ -68,7 +66,6 @@ namespace HostME.API.Controllers
 
             return Ok(result);
         }
-
 
         [HttpPost]
         [Route("create")]
@@ -145,7 +142,7 @@ namespace HostME.API.Controllers
 
             if(hostel == null)
             {
-                return NotFound();
+                return NotFound("Hostel was not found");
             }
 
             await _unitOfWork.HostelRepository.Delete(hostelDTO.Id);

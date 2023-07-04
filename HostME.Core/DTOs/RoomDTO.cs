@@ -23,6 +23,22 @@ namespace HostME.Core.DTOs
 
     }
 
+    public class AllRoomsDTO
+    {
+        [Required]
+        public int? HostelId { get; set; }
+    }
+
+    public class DeleteRoomDTO : AllRoomsDTO
+    {
+        public int Id { get; set; }
+    }
+
+    public class UpdateRoomDTO : RoomDTO
+    {
+        public int Id { get; set; }
+    }
+
     public class GetRoomDTO : RoomDTO
     {
         public int Id { get; set; }
