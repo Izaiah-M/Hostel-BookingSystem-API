@@ -40,4 +40,10 @@ namespace HostME.Core.DTOs
         [Required]
         public int Id { get; set; }
     }
+
+    public class OneHostelDTO : DeleteHostelDTO
+    {
+        
+    }
+
 }

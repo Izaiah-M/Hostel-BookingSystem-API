@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HostME.API.Controllers
 {
-    [Route("api/hostels")]
+    [Route("api/hostel")]
     [ApiController]
     public class HostelController : Controller
     {
@@ -40,6 +40,35 @@ namespace HostME.API.Controllers
 
             return Ok(results);
         }
+
+        [HttpPost]
+        [Route("hostel")]
+        public async Task<ActionResult> GetHostel([FromBody] OneHostelDTO hostelDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Missing fields");
+            }
+
+            var hostel = await _unitOfWork.HostelRepository.Get(h => h.Id == hostelDTO.Id);
+
+            if (hostel == null)
+            {
+                return NotFound();
+            }
+
+            var result = _mapper.Map<GetHostelDTO>(hostel);
+
+            // Retrieve rooms for the hostel
+            result.Rooms = _mapper.Map<IList<RoomDTO>>(hostel.Rooms);
+
+            // Populate ManagerId for the hostel
+            var hostelManager = await _unitOfWork.HostelManagerRepository.Get(h => h.Id == hostel.Id);
+            result.ManagerId = hostelManager?.ManagerId ?? 0;
+
+            return Ok(result);
+        }
+
 
         [HttpPost]
         [Route("create")]
@@ -79,7 +108,7 @@ namespace HostME.API.Controllers
             return Created("Hostel successfully created", hostel);
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("update")]
         public async Task<IActionResult> UpdateHostel([FromBody] UpdateHostelDTO hostelDTO)
         {

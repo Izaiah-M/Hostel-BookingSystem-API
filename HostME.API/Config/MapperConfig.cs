@@ -17,6 +17,8 @@ namespace HostME.API.Config
 
             CreateMap<DeleteHostelDTO, Hostel>().ReverseMap();
 
+            CreateMap<OneHostelDTO, Hostel>().ReverseMap();
+
             // User DTOs
             CreateMap<UserDTO, ApiUser>().ReverseMap();
 
