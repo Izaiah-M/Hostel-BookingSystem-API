@@ -42,6 +42,6 @@ The API provides the following endpoints:
   - `DELETE /api/room/delete`: Delete a specific room.
 
 - **User Management**
-  - `POST /api/user/approve-resident`: Approve a user as a resident.
+  - `POST /api/user/approve-resident`: Approve a user as a resident and the room to which they belong.
   - `POST /api/user/roles`: Used to update a user's role.
-  - `GET /api/user/all`: Get a list of all users.
+  - `GET /api/user/all`: Get a list of all users and their roles.
