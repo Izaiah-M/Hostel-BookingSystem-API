@@ -16,34 +16,35 @@ The HostMe Hostel Booking System API is a comprehensive API built with C# using 
 
 ## Endpoints
 
-The API provides the following endpoints:
+### Authentication
 
-- **Authentication**
+- **POST** `/api/auth/register`: Allows all users register with the system.
+- **POST** `/api/auth/login`: This endpoint is for users to Authenticate and obtain a JWT token to gain system access.
 
-  - `POST /api/auth/register`: Register a new user.
-  - `POST /api/auth/login`: Authenticate and obtain a JWT token.
+### Booking
 
-- **Booking**
+- **GET** `/api/book/all`: Accessed by users with the Manager role to retrieve all bookings.
+- **POST** `/api/book`: Accessed by users with the Default role to make a booking.
 
-  - `GET /api/book/all`: Get a list of all bookings.
-  - `POST /api/book`: Create a new booking.
+### Hostel
 
-- **Hostel**
+- **GET** `/api/hostel`: Accessible by users with the Default, Super Administrator, and Resident roles to retrieve all hostels.
+- **POST** `/api/hostel/hostel`: Accessible by users with the Default, Super Administrator, and Resident roles to retrieve a specific hostel.
+- **POST** `/api/hostel/create`: Accessed by the Super Administrator role to create a hostel.
+- **PUT** `/api/hostel/update`: Accessed by the Super Administrator role to update a hostel.
+- **DELETE** `/api/hostel/delete`: Accessed by the Super Administrator role to delete a hostel.
 
-  - `GET /api/hostel`: Get a list of all hostels.
-  - `POST /api/hostel/hostel`: Get a single hostel.
-  - `POST /api/hostel/create`: Create a new hostel.
-  - `PUT /api/hostel/update`: Update details of a specific hostel.
-  - `DELETE /api/hostel/delete`: Delete a specific hostel.
+### Room
 
-- **Room**
+- **POST** `/api/room/hostelrooms`: Accessed by users with the Default and Manager roles to retrieve all rooms for a specific hostel.
+- **POST** `/api/room/create`: Accessed by users with the Manager role to create a room.
+- **PUT** `/api/room/update`: Accessed by users with the Manager role to update a room.
+- **DELETE** `/api/room/delete`: Accessed by users with the Manager role to delete a room.
 
-  - `POST /api/room/hostelrooms`: Get a list of rooms for a specific hostel.
-  - `POST /api/room/create`: Create a new room.
-  - `PUT /api/room/update`: Update details of a specific room.
-  - `DELETE /api/room/delete`: Delete a specific room.
+### UserMgt
 
-- **User Management**
-  - `POST /api/user/approve-resident`: Approve a user as a resident and record the room to which they belong.
-  - `POST /api/user/roles`: Used to update a user's role.
-  - `GET /api/user/all`: Get a list of all users and their roles.
+- **POST** `/api/user/approve-resident`: Accessed by users with the Manager role to approve a resident.
+- **POST** `/api/user/roles`: Accessed by the Super Administrator role to update a user's role.
+- **GET** `/api/user/all`: Accessed by the Super Administrator role to retrieve all users and their roles.
+
+> **Note:** The access permissions mentioned above are for guidance and may vary based on your specific implementation and authorization logic.
