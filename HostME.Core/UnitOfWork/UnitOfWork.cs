@@ -8,11 +8,12 @@ namespace HostME.Core.UnitOfWork
     {
         private readonly HostMeContext _context;
         private IGenericRepository<Hostel>? _hostels;
+        private IGenericRepository<ApiUser>? _users;
         private IGenericRepository<Room>? _rooms;
         private IGenericRepository<HostelManager>? _hostelmanagers;
         private IGenericRepository<Booking>? _bookings;
         private IGenericRepository<HostelResident>? _hostelresidents;
-        private IDbContextTransaction _transaction;
+        private IDbContextTransaction? _transaction;
 
         public UnitOfWork(HostMeContext context)
         {
@@ -28,6 +29,8 @@ namespace HostME.Core.UnitOfWork
         public IGenericRepository<Room> RoomRepository => _rooms ??= new GenericRepository<Room>(_context);
 
         public IGenericRepository<Hostel> HostelRepository => _hostels ??= new GenericRepository<Hostel>(_context);
+
+        public IGenericRepository<ApiUser> UserRepository => _users ??= new GenericRepository<ApiUser>(_context);
 
         public void Dispose()
         {

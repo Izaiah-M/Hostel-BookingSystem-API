@@ -15,6 +15,8 @@ namespace HostME.Core.UnitOfWork
 
         IGenericRepository<Hostel> HostelRepository { get; }
 
+        IGenericRepository<ApiUser> UserRepository { get; }
+
         Task Save();
 
         Task BeginTransactionAsync();

@@ -4,6 +4,7 @@ using HostME.Core.UnitOfWork;
 using HostME.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HostME.API.Controllers
 {
@@ -19,18 +20,21 @@ namespace HostME.API.Controllers
         private readonly IMapper _mapper;
         private readonly ILogger<RoomController> _logger;
         private readonly UserManager<ApiUser> _userManager;
+        private readonly RoleManager<ApiRoles> _roleManager;
 
         public UserMgtController(
             IUnitOfWork unitOfWork,
             IMapper mapper,
             ILogger<RoomController> logger,
-            UserManager<ApiUser> userManager
+            UserManager<ApiUser> userManager,
+            RoleManager<ApiRoles> roleManager
             )
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _logger = logger;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         [HttpPost]
@@ -62,9 +66,18 @@ namespace HostME.API.Controllers
                         return BadRequest("User did not book");
                     }
 
+                    // Get the roles of the user.
+                    var currentRoles = await _userManager.GetRolesAsync(user);
+
+                    // Remove the "User" role from the user's roles
+                    await _userManager.RemoveFromRoleAsync(user, "User");
+
+                    // Add the "Resident" role to the user's roles
                     await _userManager.AddToRoleAsync(user, "Resident");
+
                     await _unitOfWork.HostelResidentRepository.Insert(resident);
-                    await _unitOfWork.BookingsRepository.Delete(bookingRecord.Id);
+
+                    //await _unitOfWork.BookingsRepository.Delete(bookingRecord.Id);
 
                     var room = await _unitOfWork.RoomRepository.Get(r => r.Id == hostelResidentDTO.RoomId);
 
@@ -97,6 +110,74 @@ namespace HostME.API.Controllers
                     return StatusCode(500, "Something went wrong during resident approval.");
                 }
             }
+        }
+
+        [HttpPost]
+        [Route("manager")]
+        public async Task<IActionResult> UpdateRole([FromBody] UserManagerDTO userDTO)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest("Missing Fields");
+            }
+
+            var user = await _userManager.FindByIdAsync(userDTO.Id.ToString());
+
+            if (user == null)
+            {
+                return NotFound("User does not exist!");
+            }
+
+            var role = await _roleManager.FindByIdAsync(userDTO.Id.ToString());
+
+            if (role == null)
+            {
+                return NotFound("Role was not found");
+            }
+
+            var currentRoles = await _userManager.GetRolesAsync(user);
+
+            // Remove the "User" role from the user's roles
+            foreach (var roleToremove in currentRoles)
+            {
+                await _userManager.RemoveFromRoleAsync(user, roleToremove);
+            }
+
+            // Add the "Resident" role to the user's roles
+            await _userManager.AddToRoleAsync(user, role.Name);
+
+            _logger.LogInformation($"User {user} made a Manager");
+
+            return Ok("User Updated");
+        }
+
+
+        [HttpGet]
+        [Route("all")]
+        public async Task<IActionResult> GetUsers()
+        {
+            var users = await _userManager.Users.ToListAsync();
+
+            var results = new List<OneUserDTO>();
+
+            foreach (var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+
+                var userDto = new OneUserDTO
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    PhoneNumber = user.PhoneNumber,
+                    Email = user.Email,
+                    Roles = roles
+                };
+
+                results.Add(userDto);
+            }
+
+            return Ok(results);
         }
 
 

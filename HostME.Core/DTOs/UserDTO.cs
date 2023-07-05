@@ -2,6 +2,14 @@
 
 namespace HostME.Core.DTOs
 {
+    public class UserManagerDTO
+    {
+        [Required]
+        public int Id { get; set; }
+
+        [Required]
+        public int RoleId { get; set; }
+    }
 
     public class LoginDTO
     {
@@ -17,6 +25,9 @@ namespace HostME.Core.DTOs
     public class OneUserDTO
     {
         [Required]
+        public int Id { get; set; }
+
+        [Required]
         [StringLength(100)]
         public required string FirstName { get; set; }
 
@@ -30,6 +41,8 @@ namespace HostME.Core.DTOs
         [Required]
         [StringLength(255)]
         public required string Email { get; set; }
+
+        public ICollection<string>? Roles { get; set; }
     }
 
     public class UserDTO : LoginDTO
@@ -43,7 +56,7 @@ namespace HostME.Core.DTOs
         public required string LastName { get; set; }
 
         [Required]
-        public required string PhoneNumber { get; set; }   
+        public required string PhoneNumber { get; set; }
 
         //public ICollection<string>? Roles { get; set; }
 

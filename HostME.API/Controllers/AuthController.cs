@@ -61,6 +61,13 @@ namespace HostME.API.Controllers
                     return BadRequest("Something went wrong");
                 }
 
+                if(user.UserName == "Administrator")
+                {
+                    await _usermanager.AddToRoleAsync(user, "Super Administrator");
+
+                    return Ok("Successfully registered");
+                }
+
                 await _usermanager.AddToRoleAsync(user, "User");
 
                 return Ok("Successfully registered");

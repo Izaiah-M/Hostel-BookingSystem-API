@@ -24,6 +24,7 @@ namespace HostME.API.Config
             // User DTOs
             CreateMap<UserDTO, ApiUser>().ReverseMap();
             CreateMap<OneUserDTO, ApiUser>().ReverseMap();
+            CreateMap<UserManagerDTO, ApiUser>().ReverseMap();
 
             // Room DTOs
             CreateMap<RoomDTO, Room>().ReverseMap();
