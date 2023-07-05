@@ -12,6 +12,8 @@ The HostMe Hostel Booking System API is a comprehensive API built with C# using 
   - **Manager**: The manager role is assigned by the Super Administrator when creating hostels. Managers have the authority to create, update, and delete rooms within their assigned hostels.
   - **Super Administrator**: The Super Administrator role is assigned to one user upon system startup. This role has the highest level of access and can perform administrative tasks such as creating hostels and assigning managers.
 
+> **Note:** The API is built using Microsoft SQL Server as the default database management system (DBMS). However, it can be adjusted to work with other DBMS of your choice by modifying the database configuration accordingly.
+
 ## Endpoints
 
 The API provides the following endpoints:
