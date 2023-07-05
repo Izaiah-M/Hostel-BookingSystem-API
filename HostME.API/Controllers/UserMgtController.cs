@@ -113,7 +113,7 @@ namespace HostME.API.Controllers
         }
 
         [HttpPost]
-        [Route("manager")]
+        [Route("roles")]
         public async Task<IActionResult> UpdateRole([FromBody] UserManagerDTO userDTO)
         {
             if(!ModelState.IsValid)
