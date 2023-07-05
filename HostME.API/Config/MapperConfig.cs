@@ -44,6 +44,9 @@ namespace HostME.API.Config
 
             CreateMap<AllBookingsDTO, Booking>().ReverseMap();
 
+            // HostelResident DTOs
+            CreateMap<HostelResidentDTO, HostelResident>().ReverseMap();
+
         }
     }
 }

@@ -9,10 +9,18 @@ namespace HostME.Core.UnitOfWork
 
         IGenericRepository<HostelManager> HostelManagerRepository { get; }
 
+        IGenericRepository<HostelResident> HostelResidentRepository { get; }
+
         IGenericRepository<Room> RoomRepository { get; }
 
         IGenericRepository<Hostel> HostelRepository { get; }
 
         Task Save();
+
+        Task BeginTransactionAsync();
+
+        Task CommitTransactionAsync();
+
+        Task RollbackTransactionAsync();
     }
 }

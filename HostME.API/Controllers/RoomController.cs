@@ -36,6 +36,12 @@ namespace HostME.API.Controllers
                 return BadRequest("Missing Fields");
             }
 
+            var hostel = await _unitOfWork.HostelRepository.Get(h => h.Id == roomDTO.HostelId);
+
+            if(hostel == null) 
+            {
+                return BadRequest("Hostel Not Found!");
+            }
 
             var rooms = await _unitOfWork.RoomRepository.GetAll(r => r.HostelId == roomDTO.HostelId);
 

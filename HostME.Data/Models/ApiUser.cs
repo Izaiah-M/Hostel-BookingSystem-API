@@ -9,9 +9,5 @@ namespace HostME.Data.Models
         public string LastName { get; set; } = null!;
 
         public string? FirstLogin { get; set; }
-/*
-        public int HostelId { get; set; }
-
-        public int RoomId { get; set; }*/
     }
 }

@@ -1,5 +1,6 @@
 ﻿using HostME.Core.UnitOfWork.Repository;
 using HostME.Data.Models;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace HostME.Core.UnitOfWork
 {
@@ -10,6 +11,8 @@ namespace HostME.Core.UnitOfWork
         private IGenericRepository<Room>? _rooms;
         private IGenericRepository<HostelManager>? _hostelmanagers;
         private IGenericRepository<Booking>? _bookings;
+        private IGenericRepository<HostelResident>? _hostelresidents;
+        private IDbContextTransaction _transaction;
 
         public UnitOfWork(HostMeContext context)
         {
@@ -19,6 +22,8 @@ namespace HostME.Core.UnitOfWork
         public IGenericRepository<Booking> BookingsRepository => _bookings ??= new GenericRepository<Booking>(_context);
 
         public IGenericRepository<HostelManager> HostelManagerRepository => _hostelmanagers ??= new GenericRepository<HostelManager>(_context);
+
+        public IGenericRepository<HostelResident> HostelResidentRepository => _hostelresidents ??= new GenericRepository<HostelResident>(_context);
 
         public IGenericRepository<Room> RoomRepository => _rooms ??= new GenericRepository<Room>(_context);
 
@@ -33,6 +38,32 @@ namespace HostME.Core.UnitOfWork
         public async Task Save()
         {
             await _context.SaveChangesAsync();
+        }
+
+
+        public async Task BeginTransactionAsync()
+        {
+            _transaction = await _context.Database.BeginTransactionAsync();
+        }
+
+        public async Task CommitTransactionAsync()
+        {
+            if (_transaction != null)
+            {
+                await _transaction.CommitAsync();
+                _transaction.Dispose();
+                _transaction = null;
+            }
+        }
+
+        public async Task RollbackTransactionAsync()
+        {
+            if (_transaction != null)
+            {
+                await _transaction.RollbackAsync();
+                _transaction.Dispose();
+                _transaction = null;
+            }
         }
     }
 }

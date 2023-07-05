@@ -20,19 +20,19 @@ namespace HostME.API.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ILogger<HostelController> _logger;
-        private readonly UserManager<ApiUser> _usermanager;
+
 
         public BookingController(ILogger<HostelController> logger, IMapper mapper, IUnitOfWork unitOfWork, UserManager<ApiUser> usermanager)
         {
             _logger = logger;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
-            _usermanager = usermanager;
+
         }
 
         [HttpGet]
         [Route("all")]
-        public async Task<ActionResult> GetReservations() 
+        public async Task<ActionResult> GetReservations()
         {
             var reservations = await _unitOfWork.BookingsRepository.GetAll(null, null, new List<string> { "Hostel", "Room", "Customer" });
 
@@ -44,18 +44,59 @@ namespace HostME.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Book([FromBody] BookingDTO bookingDTO)
         {
-            if(!ModelState.IsValid) {
+            if (!ModelState.IsValid)
+            {
                 return BadRequest("Missing fields");
             }
 
             var booking = _mapper.Map<Booking>(bookingDTO);
 
-            await _unitOfWork.BookingsRepository.Insert(booking);
+            var room = await _unitOfWork.RoomRepository.Get(r => r.Id == bookingDTO.RoomId);
 
-            await _unitOfWork.Save();
+            if (room == null)
+            {
+                return NotFound("Room not found");
+            }
 
-            _logger.LogInformation($"User {bookingDTO.UserId} booked room ${bookingDTO.RoomId} in hostel {bookingDTO.HostelId}");
-            return Ok($"Room {bookingDTO.RoomId} reserved");
+            var roomStatus = room.RoomStatus;
+
+            if (roomStatus == "Booked" || roomStatus == "Maintenance")
+            {
+                return BadRequest("Room is not available.");
+            }
+
+            using (var transaction = _unitOfWork.BeginTransactionAsync())
+            {
+                try
+                {
+                    var updatedRoom = new Room
+                    {
+                        Id = room.Id,
+                        RoomStatus = "Booked",
+                        HostelId = room.HostelId,
+                        RoomType = room.RoomType,
+                        Capacity = room.Capacity,
+                        PricePerSemester = room.PricePerSemester
+                    };
+
+                    _unitOfWork.RoomRepository.Update(updatedRoom);
+
+                    await _unitOfWork.BookingsRepository.Insert(booking);
+
+                    await _unitOfWork.Save();
+
+                    await _unitOfWork.CommitTransactionAsync();
+
+                    _logger.LogInformation($"User {bookingDTO.UserId} booked room ${bookingDTO.RoomId} in hostel {bookingDTO.HostelId}");
+                    return Ok($"Room {bookingDTO.RoomId} reserved");
+                }
+                catch (Exception ex)
+                {
+                    await _unitOfWork.RollbackTransactionAsync();
+                    _logger.LogError(ex, "An error occurred during booking transaction.");
+                    return StatusCode(500, "Something went wrong during booking.");
+                }
+            }
         }
 
     }
