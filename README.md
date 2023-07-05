@@ -6,10 +6,11 @@ The HostMe Hostel Booking System API is a comprehensive API built with C# using 
 
 - **JWT Authentication**: The API utilizes JSON Web Tokens (JWT) for user authentication, ensuring secure access to the system.
 - **Role-based Access Control**: The API supports role-based access control with the following roles:
-  - Default
-  - Resident
-  - Manager
-  - Super Administrator
+
+  - **Default**: The default role assigned to new users upon registration. It provides basic access to the system's features.
+  - **Resident**: The resident role is assigned to a user who has booked a room and their booking has been approved by the hostel manager.
+  - **Manager**: The manager role is assigned by the Super Administrator when creating hostels. Managers have the authority to create, update, and delete rooms within their assigned hostels.
+  - **Super Administrator**: The Super Administrator role is assigned to one user upon system startup. This role has the highest level of access and can perform administrative tasks such as creating hostels and assigning managers.
 
 ## Endpoints
 
