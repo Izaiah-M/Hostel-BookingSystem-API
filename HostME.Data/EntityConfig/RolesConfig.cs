@@ -36,9 +36,9 @@ namespace HostME.Data.EntityConfig
                 new ApiRoles
                 {
                     Id = 4,
-                    Name = "User",
-                    NormalizedName = "USER",
-                    Description = "user role",
+                    Name = "Default",
+                    NormalizedName = "DEFAULT",
+                    Description = "default role",
                     AccessLevel = "/[\"user dashboard/\"]"
                 }
 
