@@ -20,7 +20,6 @@ namespace HostME.API.Controllers
         private ApiUser? _user;
         private readonly IAuthManager _authManager;
 
-        // Dependency Injection
         public AuthController(
             IUnitOfWork unitOfWork,
             ILogger<AuthController> logger,
@@ -28,13 +27,13 @@ namespace HostME.API.Controllers
             UserManager<ApiUser> userManager,
             IAuthManager authManager
             )
-            
+
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
             _mapper = mapper;
             _userManager = userManager;
-            _authManager = authManager; 
+            _authManager = authManager;
         }
 
         [HttpPost]
@@ -67,7 +66,7 @@ namespace HostME.API.Controllers
                     return BadRequest("Something went wrong");
                 }
 
-                if(user.UserName == "Administrator")
+                if (user.UserName == "Administrator")
                 {
                     await _userManager.AddToRoleAsync(user, "Super Administrator");
 
@@ -100,25 +99,24 @@ namespace HostME.API.Controllers
                 return BadRequest("Missing fields");
             }
 
-            // This here will go ahead to see other requirements I made in the user DTO and varify them
             if (!ModelState.IsValid)
             {
                 _logger.LogInformation($"Invalid fields Email: {userDTO.Email} password: {userDTO.Password}");
                 return BadRequest(ModelState);
             }
 
-            try
+            if (!await _authManager.ValidateUser(userDTO))
             {
+                _logger.LogInformation($"Unauthorized Username: {userDTO.Email}, Password: {userDTO.Password}");
+                return Unauthorized("Invalid Username or Password");
+            }
 
-                if (!await _authManager.ValidateUser(userDTO))
-                {
-                    _logger.LogInformation($"Unauthorized Username: {userDTO.Email}, Password: {userDTO.Password}");
-                    return Unauthorized("Invalid Username or Password");
-                }
+            _user = await _userManager.FindByNameAsync(userDTO.Email);
 
-                _user = await _userManager.FindByNameAsync(userDTO.Email);
+            var resident = await _unitOfWork.HostelResidentRepository.Get(r => r.ResidentId == _user.Id);
 
-                var user = new
+            if (resident == null) {
+                var Noroomuser = new
                 {
                     firstName = _user?.FirstName,
                     lastName = _user?.LastName,
@@ -130,15 +128,36 @@ namespace HostME.API.Controllers
                     Token = await _authManager.CreateToken()
                 };
 
-                return Accepted(user);
-
+                return Accepted(Noroomuser);
             }
-            catch (Exception ex)
+
+            var room = await _unitOfWork.RoomRepository.Get(r => r.Id == resident.RoomId);
+
+            var roomObj = new GetRoomDTO
             {
-                _logger.LogInformation($"Something went wrong, {nameof(Login)} ", ex);
+                Id = room.Id,
+                HostelId = room.HostelId,
+                RoomType = room.RoomType,
+                Capacity = room.Capacity,
+                PricePerSemester = room.PricePerSemester,
+                RoomStatus = room.RoomStatus
+            };
 
-                return Problem($"Something went wrong, {nameof(Login)}", statusCode: 500);
-            }
+            var user = new
+            {
+                id = _user?.Id,
+                firstName = _user?.FirstName,
+                lastName = _user?.LastName,
+                userName = _user?.UserName,
+                email = _user?.Email,
+                phoneNumber = _user?.PhoneNumber,
+                room = roomObj,
+                accessFailedCount = _user?.AccessFailedCount,
+                Token = await _authManager.CreateToken()
+            };
+
+            return Accepted(user);
+
         }
 
     }

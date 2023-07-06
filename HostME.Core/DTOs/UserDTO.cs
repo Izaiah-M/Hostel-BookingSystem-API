@@ -43,6 +43,8 @@ namespace HostME.Core.DTOs
         public required string Email { get; set; }
 
         public ICollection<string>? Roles { get; set; }
+
+        public GetRoomDTO? Room { get; set; }
     }
 
     public class UserDTO : LoginDTO
@@ -57,8 +59,6 @@ namespace HostME.Core.DTOs
 
         [Required]
         public required string PhoneNumber { get; set; }
-
-        //public ICollection<string>? Roles { get; set; }
 
     }
 }

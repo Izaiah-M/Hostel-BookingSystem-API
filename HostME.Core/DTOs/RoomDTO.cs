@@ -15,7 +15,7 @@ namespace HostME.Core.DTOs
         public int? Capacity { get; set; }
 
         [Required]
-        public decimal? PricePerSemester { get; set; }
+        public double? PricePerSemester { get; set; }
 
         [Required]
         [StringLength(255)]

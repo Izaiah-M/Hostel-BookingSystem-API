@@ -174,6 +174,30 @@ namespace HostME.API.Controllers
                     Roles = roles
                 };
 
+                var resident = await _unitOfWork.HostelResidentRepository.Get(r => r.ResidentId == user.Id);
+
+                if (resident == null)
+                {
+                    results.Add(userDto);
+
+                    return Ok(results);
+                }
+
+                    var room = await _unitOfWork.RoomRepository.Get(r => r.Id == resident.RoomId);
+                    if (room != null)
+                    {
+                        userDto.Room = new GetRoomDTO
+                        {
+                            Id = room.Id,
+                            HostelId = room.HostelId,
+                            RoomType = room.RoomType,
+                            Capacity = room.Capacity,
+                            PricePerSemester = room.PricePerSemester,
+                            RoomStatus = room.RoomStatus
+                        };
+                    }
+                
+
                 results.Add(userDto);
             }
 
