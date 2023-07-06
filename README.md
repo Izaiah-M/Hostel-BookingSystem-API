@@ -5,6 +5,7 @@ The HostMe Hostel Booking System API is a comprehensive API built with C# using 
 ## Features
 
 - **JWT Authentication**: The API utilizes JSON Web Tokens (JWT) for user authentication, ensuring secure access to the system.
+- **Caching and Throttling Abilities**: The API has caching and throttling to ensure good performance.
 - **Role-based Access Control**: The API supports role-based access control with the following roles:
 
   - **Default**: The default role assigned to new users upon registration. It provides basic access to the system's features.

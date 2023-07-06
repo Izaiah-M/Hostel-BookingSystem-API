@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HostME.Core.DTOs;
+using HostME.Core.Services;
 using HostME.Core.UnitOfWork;
 using HostME.Data.Models;
 using Microsoft.AspNetCore.Identity;
@@ -15,20 +16,25 @@ namespace HostME.API.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<AuthController> _logger;
         private readonly IMapper _mapper;
-        private readonly UserManager<ApiUser> _usermanager;
-        //private ApiUser? _user;
+        private readonly UserManager<ApiUser> _userManager;
+        private ApiUser? _user;
+        private readonly IAuthManager _authManager;
 
         // Dependency Injection
         public AuthController(
             IUnitOfWork unitOfWork,
             ILogger<AuthController> logger,
             IMapper mapper,
-            UserManager<ApiUser> usermanager)
+            UserManager<ApiUser> userManager,
+            IAuthManager authManager
+            )
+            
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
             _mapper = mapper;
-            _usermanager = usermanager;
+            _userManager = userManager;
+            _authManager = authManager; 
         }
 
         [HttpPost]
@@ -48,7 +54,7 @@ namespace HostME.API.Controllers
                 user.UserName = userDTO.Email.Split('@')[0];
                 user.FirstLogin = "Y";
 
-                var result = await _usermanager.CreateAsync(user, userDTO.Password);
+                var result = await _userManager.CreateAsync(user, userDTO.Password);
 
                 if (!result.Succeeded)
                 {
@@ -63,12 +69,12 @@ namespace HostME.API.Controllers
 
                 if(user.UserName == "Administrator")
                 {
-                    await _usermanager.AddToRoleAsync(user, "Super Administrator");
+                    await _userManager.AddToRoleAsync(user, "Super Administrator");
 
                     return Ok("Successfully registered");
                 }
 
-                await _usermanager.AddToRoleAsync(user, "User");
+                await _userManager.AddToRoleAsync(user, "User");
 
                 return Ok("Successfully registered");
 
@@ -80,5 +86,60 @@ namespace HostME.API.Controllers
             }
 
         }
+
+
+        [HttpPost]
+        [Route("login")]
+        public async Task<ActionResult> Login([FromBody] LoginDTO userDTO)
+        {
+            _logger.LogInformation($"Logging in; Email: {userDTO.Email}, Password: {userDTO.Password}");
+
+            if (userDTO.Email == null || userDTO.Password == null)
+            {
+                _logger.LogInformation($"Missing Fields Email: {userDTO.Email} password: {userDTO.Password}");
+                return BadRequest("Missing fields");
+            }
+
+            // This here will go ahead to see other requirements I made in the user DTO and varify them
+            if (!ModelState.IsValid)
+            {
+                _logger.LogInformation($"Invalid fields Email: {userDTO.Email} password: {userDTO.Password}");
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+
+                if (!await _authManager.ValidateUser(userDTO))
+                {
+                    _logger.LogInformation($"Unauthorized Username: {userDTO.Email}, Password: {userDTO.Password}");
+                    return Unauthorized("Invalid Username or Password");
+                }
+
+                _user = await _userManager.FindByNameAsync(userDTO.Email);
+
+                var user = new
+                {
+                    firstName = _user?.FirstName,
+                    lastName = _user?.LastName,
+                    id = _user?.Id,
+                    userName = _user?.UserName,
+                    email = _user?.Email,
+                    phoneNumber = _user?.PhoneNumber,
+                    accessFailedCount = _user?.AccessFailedCount,
+                    Token = await _authManager.CreateToken()
+                };
+
+                return Accepted(user);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation($"Something went wrong, {nameof(Login)} ", ex);
+
+                return Problem($"Something went wrong, {nameof(Login)}", statusCode: 500);
+            }
+        }
+
     }
 }

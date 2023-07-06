@@ -1,5 +1,6 @@
 using HostME.API.Config;
 using HostME.Core;
+using HostME.Core.Services;
 using HostME.Core.UnitOfWork;
 using HostME.Data.Models;
 using Microsoft.AspNetCore.Identity;
@@ -41,6 +42,11 @@ builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 // 6. Adding our AutoMapper
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 
+// 8. Adding our authmanager
+builder.Services.AddScoped<IAuthManager, AuthManager>();
+
+// 9. Configuring JWT
+builder.Services.ConfigureJWT(builder.Configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -65,7 +71,7 @@ app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
-// 3. registering authentication.
+// 3. registering authentication which will help with our JWT config.
 app.UseAuthentication();
 app.UseAuthorization();
 
