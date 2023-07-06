@@ -21,10 +21,10 @@ namespace HostME.Core.Services
             _configuration = configuration;
         }
 
-        public async Task<string> CreateToken()
+        public async Task<string> CreateToken(ApiUser user)
         {
             var signingCredentials = GetSigningCredentials();
-            var claims = await GetClaims();
+            var claims = await GetClaims(user);
             var token = GenerateTokenOptions(signingCredentials, claims);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
@@ -45,15 +45,15 @@ namespace HostME.Core.Services
             return token;
         }
 
-        private async Task<List<Claim>> GetClaims()
+        private async Task<List<Claim>> GetClaims(ApiUser user)
         {
             var claims = new List<Claim>
             {
-                new Claim("username", _user.UserName),
-                new Claim("id", _user.Id.ToString()),
+                new Claim("username", user.UserName),
+                new Claim("id", user.Id.ToString()),
             };
 
-            var roles = await _userManager.GetRolesAsync(_user);
+            var roles = await _userManager.GetRolesAsync(user);
 
             foreach (var role in roles)
             {

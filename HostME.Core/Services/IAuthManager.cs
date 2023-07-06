@@ -1,4 +1,5 @@
 ﻿using HostME.Core.DTOs;
+using HostME.Data.Models;
 
 namespace HostME.Core.Services
 {
@@ -6,6 +7,6 @@ namespace HostME.Core.Services
     {
         Task<bool> ValidateUser(LoginDTO userDTO);
 
-        Task<string> CreateToken();
+        Task<string> CreateToken(ApiUser user);
     }
 }

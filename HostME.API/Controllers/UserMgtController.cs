@@ -146,7 +146,7 @@ namespace HostME.API.Controllers
             // Add the "Resident" role to the user's roles
             await _userManager.AddToRoleAsync(user, role.Name);
 
-            _logger.LogInformation($"User {user} made a Manager");
+            _logger.LogInformation($"User {user} role changed to {role.Name}");
 
             return Ok("User Updated");
         }

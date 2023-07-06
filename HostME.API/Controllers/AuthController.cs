@@ -47,43 +47,47 @@ namespace HostME.API.Controllers
                 return BadRequest("Missing Fields");
             }
 
-            try
+
+            var user = _mapper.Map<ApiUser>(userDTO);
+            user.UserName = userDTO.Email.Split('@')[0];
+            user.FirstLogin = "Y";
+
+            var result = await _userManager.CreateAsync(user, userDTO.Password);
+
+            if (!result.Succeeded)
             {
-                var user = _mapper.Map<ApiUser>(userDTO);
-                user.UserName = userDTO.Email.Split('@')[0];
-                user.FirstLogin = "Y";
-
-                var result = await _userManager.CreateAsync(user, userDTO.Password);
-
-                if (!result.Succeeded)
+                foreach (var error in result.Errors)
                 {
-                    foreach (var error in result.Errors)
-                    {
-                        _logger.LogInformation($"User registration failed:  {error.Code}: {error.Description}");
+                    _logger.LogInformation($"User registration failed:  {error.Code}: {error.Description}");
 
-                        _logger.LogInformation($"Username {user.UserName} firstname: {user.FirstName}");
-                    }
-                    return BadRequest("Something went wrong");
+                    _logger.LogInformation($"Username {user.UserName} firstname: {user.FirstName}");
                 }
+                return BadRequest("Something went wrong");
+            }
 
-                if (user.UserName == "Administrator")
-                {
-                    await _userManager.AddToRoleAsync(user, "Super Administrator");
-
-                    return Ok("Successfully registered");
-                }
-
-                await _userManager.AddToRoleAsync(user, "User");
+            if (user.UserName == "Administrator")
+            {
+                await _userManager.AddToRoleAsync(user, "Super Administrator");
 
                 return Ok("Successfully registered");
-
             }
-            catch (Exception ex)
+
+            await _userManager.AddToRoleAsync(user, "User");
+
+            var registereduser = new
             {
-                _logger.LogError("Server Error: ", ex.Message);
-                return StatusCode(500, "Internal Server error, please try again later");
-            }
+                id = user.Id,
+                firstName = user.FirstName,
+                lastName = user.LastName,
+                userName = user.UserName,
+                email = user.Email,
+                phoneNumber = user.PhoneNumber,
+                firstLogin = user.FirstLogin,
+                accessFailedCount = user.AccessFailedCount,
+                Token = await _authManager.CreateToken(user)
+            };
 
+            return Ok(registereduser);
         }
 
 
@@ -115,7 +119,8 @@ namespace HostME.API.Controllers
 
             var resident = await _unitOfWork.HostelResidentRepository.Get(r => r.ResidentId == _user.Id);
 
-            if (resident == null) {
+            if (resident == null)
+            {
                 var Noroomuser = new
                 {
                     firstName = _user?.FirstName,
@@ -125,7 +130,7 @@ namespace HostME.API.Controllers
                     email = _user?.Email,
                     phoneNumber = _user?.PhoneNumber,
                     accessFailedCount = _user?.AccessFailedCount,
-                    Token = await _authManager.CreateToken()
+                    Token = await _authManager.CreateToken(_user)
                 };
 
                 return Accepted(Noroomuser);
@@ -153,7 +158,7 @@ namespace HostME.API.Controllers
                 phoneNumber = _user?.PhoneNumber,
                 room = roomObj,
                 accessFailedCount = _user?.AccessFailedCount,
-                Token = await _authManager.CreateToken()
+                Token = await _authManager.CreateToken(_user)
             };
 
             return Accepted(user);

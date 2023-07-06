@@ -47,7 +47,7 @@ namespace HostME.Core
 
                     if (contextFeature != null)
                     {
-                        Log.Error($"Something went wrong. Err: {contextFeature.Error.Message}");
+                        Log.Error($"Something went wrong. Err: {contextFeature.Error}");
 
                         await context.Response.WriteAsync(new ErrorConfig
                         {
