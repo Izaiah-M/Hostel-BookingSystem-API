@@ -2,6 +2,7 @@
 using HostME.Core.DTOs;
 using HostME.Core.UnitOfWork;
 using HostME.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,7 @@ namespace HostME.API.Controllers
             _usermanager = usermanager;
         }
 
+        [Authorize(Roles = "Super Administrator, User")]
         [HttpGet]
         public async Task<ActionResult> GetAllHostels()
         {
@@ -41,6 +43,7 @@ namespace HostME.API.Controllers
             return Ok(results);
         }
 
+        [Authorize(Roles = "Super Administrator, User")]
         [HttpPost]
         [Route("hostel")]
         public async Task<ActionResult> GetHostel([FromBody] OneHostelDTO hostelDTO)
@@ -67,6 +70,7 @@ namespace HostME.API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Super Administrator")]
         [HttpPost]
         [Route("create")]
         public async Task<IActionResult> CreateHostel([FromBody] HostelDTO hostelDTO)
@@ -105,6 +109,7 @@ namespace HostME.API.Controllers
             return Created("Hostel successfully created", hostel);
         }
 
+        [Authorize(Roles = "Super Administrator")]
         [HttpPut]
         [Route("update")]
         public async Task<IActionResult> UpdateHostel([FromBody] UpdateHostelDTO hostelDTO)
@@ -129,6 +134,7 @@ namespace HostME.API.Controllers
             return Created("Hostel Updated", hostel);
         }
 
+        [Authorize(Roles = "Super Administrator")]
         [HttpDelete]
         [Route("delete")]
         public async Task<IActionResult> DeleteHostel([FromBody] DeleteHostelDTO hostelDTO)

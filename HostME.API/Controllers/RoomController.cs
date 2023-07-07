@@ -2,7 +2,9 @@
 using HostME.Core.DTOs;
 using HostME.Core.UnitOfWork;
 using HostME.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace HostME.API.Controllers
 {
@@ -27,6 +29,7 @@ namespace HostME.API.Controllers
             _logger = logger;
         }
 
+        [Authorize(Roles = "Super Administrator, User, Manager")]
         [HttpPost]
         [Route("hostelrooms")]
         public async Task<ActionResult> GetHostelRooms([FromBody] AllRoomsDTO roomDTO)
@@ -51,6 +54,7 @@ namespace HostME.API.Controllers
 
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [Route("create")]
         public async Task<IActionResult> CreateRoom([FromBody] RoomDTO roomDTO)
@@ -78,6 +82,7 @@ namespace HostME.API.Controllers
             return Created("Created room", room);
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPut]
         [Route("update")]
         public async Task<IActionResult> UpdateRoom([FromBody] UpdateRoomDTO roomDTO)
@@ -108,6 +113,7 @@ namespace HostME.API.Controllers
             return Created("Room Updated", room);
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpDelete]
         [Route("delete")]
         public async Task<IActionResult> DeleteRoom([FromBody] DeleteRoomDTO roomDTO)

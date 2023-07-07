@@ -2,6 +2,7 @@
 using HostME.Core.DTOs;
 using HostME.Core.UnitOfWork;
 using HostME.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,6 +31,7 @@ namespace HostME.API.Controllers
 
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpGet]
         [Route("all")]
         public async Task<ActionResult> GetReservations()
@@ -41,6 +43,7 @@ namespace HostME.API.Controllers
             return Ok(results);
         }
 
+        [Authorize(Roles = "User")]
         [HttpPost]
         public async Task<IActionResult> Book([FromBody] BookingDTO bookingDTO)
         {

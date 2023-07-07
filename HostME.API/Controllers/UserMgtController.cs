@@ -2,9 +2,11 @@
 using HostME.Core.DTOs;
 using HostME.Core.UnitOfWork;
 using HostME.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace HostME.API.Controllers
 {
@@ -37,6 +39,7 @@ namespace HostME.API.Controllers
             _roleManager = roleManager;
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [Route("approve-resident")]
         public async Task<IActionResult> ApproveResident([FromBody] HostelResidentDTO hostelResidentDTO)
@@ -112,6 +115,7 @@ namespace HostME.API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Administrator")]
         [HttpPost]
         [Route("roles")]
         public async Task<IActionResult> UpdateRole([FromBody] UserManagerDTO userDTO)
@@ -151,7 +155,7 @@ namespace HostME.API.Controllers
             return Ok("User Updated");
         }
 
-
+        [Authorize(Roles = "Super Administrator")]
         [HttpGet]
         [Route("all")]
         public async Task<IActionResult> GetUsers()

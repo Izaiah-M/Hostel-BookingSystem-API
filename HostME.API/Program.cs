@@ -1,9 +1,11 @@
+using AspNetCoreRateLimit;
 using HostME.API.Config;
 using HostME.Core;
 using HostME.Core.Services;
 using HostME.Core.UnitOfWork;
 using HostME.Data.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -28,7 +30,7 @@ builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Confi
 
 // 3. Database Config
 builder.Services.AddDbContext<HostMeContext>(
-    opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection"), 
+    opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection"),
     b => b.MigrationsAssembly("HostME.API")));
 
 // 4. Configuring Identity core
@@ -48,11 +50,33 @@ builder.Services.AddScoped<IAuthManager, AuthManager>();
 // 9. Configuring JWT
 builder.Services.ConfigureJWT(builder.Configuration);
 
-builder.Services.AddControllers();
+// 10. Adding Caching Abilities
+builder.Services.ConfigureHttpCacheHeaders();
+builder.Services.AddResponseCaching();
+
+// 11. Adding Throttling abilities
+// This is to keep track of which Client has made the request.
+builder.Services.AddMemoryCache();
+builder.Services.ConfigureRateLimitting();
+builder.Services.AddHttpContextAccessor();
+
+// 12. Adding swagger config for the sake of Auth JWT
+builder.Services.ConfigureSwagger();
+
+
+builder.Services.AddControllers(config =>
+{
+    // This is under step 10
+    config.CacheProfiles.Add("120SecondsDuration", new CacheProfile
+    {
+        Duration = 120
+    });
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// App config
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -70,6 +94,13 @@ app.UseCors(origins);
 app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
+
+// 10. Setting up caching
+app.UseResponseCaching();
+app.UseHttpCacheHeaders();
+
+// 11. Configuring throttling
+app.UseIpRateLimiting();
 
 // 3. registering authentication which will help with our JWT config.
 app.UseAuthentication();
