@@ -30,6 +30,7 @@ namespace HostME.Core
                 op.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
+                    ValidateAudience = false,
                     ValidateIssuerSigningKey = true,
                     ValidateLifetime = true,
                     ValidIssuer = jwtsettings.GetSection("Issuer").Value,
@@ -130,8 +131,8 @@ namespace HostME.Core
                         Type = ReferenceType.SecurityScheme,
                         Id = "Bearer"
                     },
-                    Scheme = "Oauth2",
-                    Name = " Bearer",
+                    Scheme = "OAuth2",
+                    Name = "Bearer",
                     In = ParameterLocation.Header
                 },
                 new List<string>()

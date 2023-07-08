@@ -134,7 +134,7 @@ namespace HostME.API.Controllers
             return Created("Hostel Updated", hostel);
         }
 
-        [Authorize(Roles = "Super Administrator")]
+        [Authorize]
         [HttpDelete]
         [Route("delete")]
         public async Task<IActionResult> DeleteHostel([FromBody] DeleteHostelDTO hostelDTO)
